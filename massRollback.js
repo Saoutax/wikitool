@@ -18,14 +18,17 @@ $.when($.ready, mw.loader.using(["mediawiki.api", "ext.gadget.libOOUIDialog"])).
         this.prepend(newChk);
     });
 
-    $("#mw-content-text .mw-pager-navigation-bar:first").before(
-        "<div style=\"margin: 1em 0;\" id=\"mw-history-revision-actions\"> \
-        <a class=\"mw-ui-button\" id=\"mw-checkbox-invert\">全选/反选</a> \
-        <a class=\"mw-ui-button\" id=\"mw-checkbox-between\" title=\"请勾选需要操作的第一个和最后一个复选框后点击此按钮。\">连选</a> \
-        <a class=\"mw-ui-button mw-ui-progressive\" id=\"contributions-undo-button\">撤销</a> \
-        <a class=\"mw-ui-button mw-ui-progressive\" id=\"contributions-rollback-button\" title=\"默认不启用markbotedit权限。\">回退</a> \
-        <a class=\"mw-ui-button mw-ui-progressive\" id=\"contributions-revdel-button\" title=\"默认仅删除内容和摘要。\">版本删除</a> \
-        </div>",
+    const buttons = [
+        { label: '全选/反选', id: 'mw-checkbox-invert' },
+        { label: '连选', id: 'mw-checkbox-between', title: '请勾选需要操作的第一个和最后一个复选框后点击此按钮。' },
+        { label: '撤销', id: 'contributions-undo-button', classes: ['mw-ui-progressive'] },
+        { label: '回退', id: 'contributions-rollback-button', classes: ['mw-ui-progressive', 'patroller-show'], title: '默认不启用markbotedit权限。' },
+        { label: '版本删除', id: 'contributions-revdel-button', classes: ['mw-ui-progressive', 'sysop-show'], title: '默认仅删除内容和摘要。' }
+    ];
+    $('div.mw-htmlform-ooui-wrapper').after(
+        $('<div>', { id: 'mw-history-revision-actions' })
+            .css({ float: 'right', 'margin-bottom': '1em' })
+            .append(...buttons.map(cfg => new OO.ui.ButtonWidget(cfg).$element))
     );
 
 
