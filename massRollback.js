@@ -18,19 +18,15 @@ $.when($.ready, mw.loader.using(["mediawiki.api", "ext.gadget.libOOUIDialog"])).
         this.prepend(newChk);
     });
 
-    const buttons = [
-        { label: '全选/反选', id: 'mw-checkbox-invert' },
-        { label: '连选', id: 'mw-checkbox-between', title: '请勾选需要操作的第一个和最后一个复选框后点击此按钮。' },
-        { label: '撤销', id: 'contributions-undo-button', classes: ['mw-ui-progressive'] },
-        { label: '回退', id: 'contributions-rollback-button', classes: ['mw-ui-progressive', 'patroller-show'], title: '默认不启用markbotedit权限。' },
-        { label: '版本删除', id: 'contributions-revdel-button', classes: ['mw-ui-progressive', 'sysop-show'], title: '默认仅删除内容和摘要。' }
-    ];
     $('div.mw-htmlform-ooui-wrapper').after(
-        $('<div>', { id: 'mw-history-revision-actions' })
-            .css({ float: 'right', 'margin-bottom': '1em' })
-            .append(...buttons.map(cfg => new OO.ui.ButtonWidget(cfg).$element))
+        "<div style=\"float: right; margin: 0.6em 0;\" id=\"mw-history-revision-actions\"> \
+        <button class=\"cdx-button cdx-button--action-progressive\" id=\"mw-checkbox-invert\">全选/反选</button> \
+        <button class=\"cdx-button cdx-button--action-progressive\" id=\"mw-checkbox-between\" title=\"请勾选需要操作的第一个和最后一个复选框后点击此按钮。\">连选</button> \
+        <button class=\"cdx-button cdx-button--action-progressive cdx-button--weight-primary\" id=\"contributions-undo-button\">撤销</button> \
+        <button class=\"cdx-button cdx-button--action-progressive cdx-button--weight-primary patroller-show\" id=\"contributions-rollback-button\" title=\"默认不启用markbotedit权限。\">回退</button> \
+        <button class=\"cdx-button cdx-button--action-progressive cdx-button--weight-primary sysop-show\" id=\"contributions-revdel-button\" title=\"默认仅删除内容和摘要。\">版本删除</button> \
+        </div>",
     );
-
 
     $("#mw-checkbox-invert").click(() => {
         $("li input[type=\"checkbox\"]").prop("checked", (_i, ele) => !ele);
