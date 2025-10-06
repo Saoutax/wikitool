@@ -5,7 +5,7 @@
     4.使用ooui
 */
 "use strict";
-$.when($.ready, mw.loader.using(["mediawiki.api", "ext.gadget.libOOUIDialog"])).then(() => {
+$.when($.ready, mw.loader.using(["mediawiki.api", "ext.gadget.libOOUIDialog", "@wikimedia/codex"])).then(() => {
     if (mw.config.get("wgCanonicalSpecialPageName") !== "Contributions") {
         return;
     }
